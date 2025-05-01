@@ -2,35 +2,28 @@ from djongo import models
 
 class User(models.Model):
     _id = models.ObjectIdField()
+    username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    name = models.CharField(max_length=100)
-    password = models.CharField(max_length=128)
-    # Add other fields as needed
+    password = models.CharField(max_length=100)
 
 class Team(models.Model):
     _id = models.ObjectIdField()
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     members = models.JSONField(default=list)  # Store list of user emails or IDs
-    # Add other fields as needed
 
 class Activity(models.Model):
     _id = models.ObjectIdField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    activity_type = models.CharField(max_length=50)
-    duration = models.IntegerField()
+    activity_type = models.CharField(max_length=100)
+    duration = models.IntegerField()  # Duration in minutes
     date = models.DateTimeField()
-    # Add other fields as needed
 
 class Leaderboard(models.Model):
     _id = models.ObjectIdField()
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    points = models.IntegerField()
-    # Add other fields as needed
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.IntegerField()
 
 class Workout(models.Model):
     _id = models.ObjectIdField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    workout_type = models.CharField(max_length=50)
-    details = models.TextField()
-    date = models.DateTimeField()
-    # Add other fields as needed
+    name = models.CharField(max_length=100)
+    description = models.TextField()

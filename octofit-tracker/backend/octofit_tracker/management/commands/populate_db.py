@@ -36,20 +36,16 @@ class Command(BaseCommand):
                 )
         # Leaderboard
         for lb in test_data['leaderboard']:
-            team = team_objs.get(lb['team'])
-            if team:
+            user = user_objs.get(lb['user'])
+            if user:
                 Leaderboard.objects.get_or_create(
-                    team=team,
-                    points=lb['points']
+                    user=user,
+                    score=lb['score']
                 )
         # Workouts
         for workout in test_data['workouts']:
-            user = user_objs.get(workout['user'])
-            if user:
-                Workout.objects.get_or_create(
-                    user=user,
-                    workout_type=workout['workout_type'],
-                    details=workout['details'],
-                    date=parse_datetime(workout['date'])
-                )
+            Workout.objects.get_or_create(
+                name=workout['name'],
+                description=workout['description']
+            )
         self.stdout.write(self.style.SUCCESS('Test data populated successfully.'))

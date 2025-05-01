@@ -17,11 +17,12 @@ test_data = {
         {"user": "carol@example.com", "activity_type": "cycling", "duration": 60, "date": "2025-05-01T12:00:00Z"}
     ],
     "leaderboard": [
-        {"team": "Team Alpha", "points": 100},
-        {"team": "Team Beta", "points": 80}
+        {"user": "alice@example.com", "score": 100},
+        {"user": "bob@example.com", "score": 80},
+        {"user": "carol@example.com", "score": 90}
     ],
     "workouts": [
-        {"user": "alice@example.com", "workout_type": "strength", "details": "Pushups and squats", "date": "2025-05-01T13:00:00Z"},
-        {"user": "bob@example.com", "workout_type": "cardio", "details": "Treadmill", "date": "2025-05-01T14:00:00Z"}
+        {"name": "Pushups", "description": "Pushups and squats"},
+        {"name": "Treadmill", "description": "Treadmill cardio"}
     ]
 }
