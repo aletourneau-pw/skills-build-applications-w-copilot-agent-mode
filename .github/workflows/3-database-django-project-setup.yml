@@ -16,6 +16,23 @@ env:
   STEP_4_FILE: ".github/steps/4-setup-django-rest-framework.md"
 
 jobs:
+ find_exercise:
+    name: Find Exercise Issue
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find Exercise Issue with Prefix
+        id: find-issue
+        run: |
+          issues=$(gh issue list --label "exercise" --state open --json title,number)
+          issue=$(echo "$issues" | jq -r '.[] | select(.title | contains("Exercise")) | .number')
+          if [ -z "$issue" ]; then
+            echo "No exercise issue found. Creating one..."
+            issue=$(gh issue create --title "Exercise: Set up database" --body "This issue tracks Step 3 tasks for setting up the database." --label "exercise" --json number | jq -r '.number')
+          fi
+          echo "issue-number=$issue" >> $GITHUB_ENV
+      - name: Log Exercise Issue
+        run: echo "Exercise issue number is ${{ env.issue-number }}"
+        
   find_exercise:
     name: Find Exercise Issue
     uses: skills/exercise-toolkit/.github/workflows/find-exercise-issue.yml@v0.1.0
