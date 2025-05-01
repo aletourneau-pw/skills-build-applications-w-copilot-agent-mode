@@ -1,3 +1,7 @@
+"""
+This script populates the database with test data for the octofit_db project.
+"""
+
 from django.core.management.base import BaseCommand
 from octofit_tracker.test_data import test_data
 from octofit_tracker.models import User, Team, Activity, Leaderboard, Workout
@@ -15,6 +19,10 @@ class Command(BaseCommand):
                 'password': user['password']
             })
             user_objs[user['email']] = obj
+
+        # Add further test data processing for teams, activities, etc.
+        self.stdout.write(self.style.SUCCESS('Test data populated successfully.'))
+        
         # Teams
         team_objs = {}
         for team in test_data['teams']:
